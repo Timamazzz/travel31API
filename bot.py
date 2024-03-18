@@ -35,11 +35,12 @@ async def shared_contact(message: types.Message):
         phone_number = message.contact.phone_number
         chat_id = message.chat.id
 
-        api_url = f'{API_URL}/applicants'
+        api_url = f'{API_URL}/applicants/'
         data = {'phone_number': phone_number, 'telegram_id': chat_id}
 
         response = requests.post(api_url, json=data, headers=HEADERS)
 
+        print(response.__dict__)
         if response.status_code == 200:
             await message.answer("Данные успешно добавлены.")
         elif response.status_code == 404:
