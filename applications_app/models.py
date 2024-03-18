@@ -61,7 +61,7 @@ class Application(models.Model):
         ('На 21 день', 'На 21 день'),
         ('До конца учебного года', 'До конца учебного года'),
     ]
-    duration = models.CharField(max_length=20, choices=DURATION_CHOICES, null=True, blank=True,
+    duration = models.CharField(max_length=30, choices=DURATION_CHOICES, null=True, blank=True,
                                 verbose_name="Срок выезда")
 
     class Meta:
