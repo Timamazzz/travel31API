@@ -35,7 +35,7 @@ async def shared_contact(message: types.Message):
         phone_number = message.contact.phone_number
         chat_id = message.chat.id
 
-        api_url = f'{API_URL}/applications/applicants/'
+        api_url = f'{API_URL}/applicants'
         data = {'phone_number': phone_number, 'telegram_id': chat_id}
 
         response = requests.post(api_url, json=data, headers=HEADERS)
