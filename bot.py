@@ -35,18 +35,23 @@ async def shared_contact(message: types.Message):
         phone_number = message.contact.phone_number
         chat_id = message.chat.id
 
-        api_url = f'{API_URL}/applicants/'
-        data = {'phone_number': phone_number, 'telegram_id': chat_id}
+        api_url_check = f'{API_URL}/applicants/?phone_number={phone_number}&telegram_id={chat_id}'
+        response_check = requests.get(api_url_check, headers=HEADERS)
 
-        response = requests.post(api_url, json=data, headers=HEADERS)
+        if response_check.status_code == 200:
+            await message.answer("Этот пользователь уже существует в базе данных.")
+        elif response_check.status_code == 404:
+            api_url_create = f'{API_URL}/applicants/'
+            data = {'phone_number': phone_number, 'telegram_id': chat_id}
 
-        print(response.__dict__)
-        if response.status_code == 200:
-            await message.answer("Данные успешно добавлены.")
-        elif response.status_code == 404:
-            await message.answer("Ошибка: не найден адрес API.")
+            response_create = requests.post(api_url_create, json=data, headers=HEADERS)
+
+            if response_create.status_code == 201:
+                await message.answer("Данные успешно добавлены.")
+            else:
+                await message.answer("Произошла ошибка при добавлении данных.")
         else:
-            await message.answer("Произошла ошибка при добавлении данных.")
+            await message.answer("Произошла ошибка при проверке данных.")
     except Exception as e:
         await message.answer("Произошла ошибка при обработке запроса.")
 

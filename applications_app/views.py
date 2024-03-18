@@ -1,3 +1,4 @@
+from applications_app.filters import ApplicantFilter
 from applications_app.models import Applicant, Municipality, School, Application
 from applications_app.serailizers.applicant_serializers import ApplicantSerializer
 from applications_app.serailizers.application_serializers import ApplicationSerializer
@@ -10,6 +11,7 @@ from travel31API.utils.ModelViewSet import ModelViewSet
 class ApplicantViewSet(ModelViewSet):
     queryset = Applicant.objects.all()
     serializer_class = ApplicantSerializer
+    filterset_class = ApplicantFilter
     serializer_list = {
         'retrieve': ApplicantSerializer,
         'create': ApplicantSerializer,
