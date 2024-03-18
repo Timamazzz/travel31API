@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register(r'applicants/', ApplicantViewSet)
 router.register(r'municipalities/', MunicipalityViewSet)
 router.register(r'schools/', SchoolViewSet)
-router.register(r'', ApplicationViewSet)
+router.register(r'applications/', ApplicationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

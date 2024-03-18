@@ -28,25 +28,26 @@ async def cmd_start(message: types.Message):
         reply_markup=builder.as_markup(resize_keyboard=True),
     )
 
-# @dp.message(F.contact)
-# async def shared_contact(message: types.Message):
-#     try:
-#         phone_number = message.contact.phone_number
-#         chat_id = message.chat.id
-#
-#         api_url = f'{API_URL}/applicants/'
-#         data = {'phone_number': phone_number, 'chat_id': chat_id}
-#
-#         response = requests.post(api_url, json=data, headers=HEADERS)
-#
-#         if response.status_code == 200:
-#
-#         elif response.status_code == 404:
-#             await message.answer("")
-#         else:
-#             await message.answer("")
-#     except Exception as e:
-#         await message.answer("")
+
+@dp.message(F.contact)
+async def shared_contact(message: types.Message):
+    try:
+        phone_number = message.contact.phone_number
+        chat_id = message.chat.id
+
+        api_url = f'{API_URL}/applications/applicants/'
+        data = {'phone_number': phone_number, 'telegram_id': chat_id}
+
+        response = requests.post(api_url, json=data, headers=HEADERS)
+
+        if response.status_code == 200:
+            await message.answer("Данные успешно добавлены.")
+        elif response.status_code == 404:
+            await message.answer("Ошибка: не найден адрес API.")
+        else:
+            await message.answer("Произошла ошибка при добавлении данных.")
+    except Exception as e:
+        await message.answer("Произошла ошибка при обработке запроса.")
 
 
 async def main():

@@ -23,7 +23,7 @@ from travel31API.utils.FileUploadView import FileUploadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/applications/', include('applications_app.urls')),
+    path('api/', include('applications_app.urls')),
     path('api/upload/', FileUploadView.as_view(), name='file-upload'),
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
