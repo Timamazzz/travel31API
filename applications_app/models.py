@@ -7,6 +7,7 @@ class Municipality(models.Model):
     class Meta:
         verbose_name = "Муниципальное образование"
         verbose_name_plural = "Муниципальные образования"
+        app_label = "applications_app"
 
     def __str__(self):
         return self.name
@@ -20,6 +21,7 @@ class School(models.Model):
     class Meta:
         verbose_name = "Школа"
         verbose_name_plural = "Школы"
+        app_label = "applications_app"
 
     def __str__(self):
         return self.name
@@ -29,6 +31,11 @@ class Applicant(models.Model):
     full_name = models.CharField(max_length=256, verbose_name="ФИО заявителя")
     telegram_id = models.CharField(max_length=512, unique=True, verbose_name="Telegram ID заявителя")
     phone_number = models.CharField(max_length=20, unique=True, verbose_name="Номер телефона заявителя")
+
+    class Meta:
+        verbose_name = "Заявитель"
+        verbose_name_plural = "Заявители"
+        app_label = "applications_app"
 
     def __str__(self):
         return self.full_name
@@ -60,6 +67,7 @@ class Application(models.Model):
     class Meta:
         verbose_name = "Заявка"
         verbose_name_plural = "Заявки"
+        app_label = "applications_app"
 
     def __str__(self):
         return f"{self.applicant.full_name} - {self.child_full_name}"
