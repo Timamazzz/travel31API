@@ -17,18 +17,6 @@ bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
 
-@dp.message(Command("start"))
-async def cmd_start(message: types.Message):
-    builder = ReplyKeyboardBuilder()
-    builder.row(
-        types.KeyboardButton(text="Поделиться номером телефона", request_contact=True),
-    )
-    await message.answer(
-        "Поделиться",
-        reply_markup=builder.as_markup(resize_keyboard=True),
-    )
-
-
 async def show_main_menu(message: types.Message):
     builder = ReplyKeyboardBuilder()
     builder.row(
@@ -37,6 +25,45 @@ async def show_main_menu(message: types.Message):
     )
     await message.answer(
         "Главное меню",
+        reply_markup=builder.as_markup(resize_keyboard=True),
+    )
+
+
+async def show_applications_menu(message: types.Message):
+    try:
+        chat_id = message.chat.id
+
+        api_url = f'{API_URL}/applications/?telegram_id={chat_id}'
+        response = requests.get(api_url, headers=HEADERS)
+
+        if response.status_code == 200:
+            applications_data = response.json()
+
+            if applications_data:
+                keyboard = ReplyKeyboardBuilder()
+                for application in applications_data:
+                    keyboard.row(types.KeyboardButton(text=f"Заявка {application['id']}"))
+
+                keyboard.row(types.KeyboardButton(text="Вернуться в главное меню"))
+
+                await message.answer("Выберите заявку:", reply_markup=keyboard.as_markup())
+            else:
+                await message.answer("У вас нет заявок.", reply_markup=types.ReplyKeyboardRemove())
+        else:
+            await message.answer("Произошла ошибка при получении данных о заявках.",
+                                 reply_markup=types.ReplyKeyboardRemove())
+    except Exception as e:
+        await message.answer("Произошла ошибка при обработке запроса.", reply_markup=types.ReplyKeyboardRemove())
+
+
+@dp.message(Command("start"))
+async def cmd_start(message: types.Message):
+    builder = ReplyKeyboardBuilder()
+    builder.row(
+        types.KeyboardButton(text="Поделиться номером телефона", request_contact=True),
+    )
+    await message.answer(
+        "Поделиться",
         reply_markup=builder.as_markup(resize_keyboard=True),
     )
 
@@ -66,6 +93,16 @@ async def shared_contact(message: types.Message):
             await message.answer("Произошла ошибка при проверке данных.")
     except Exception as e:
         await message.answer("Произошла ошибка при обработке запроса.")
+
+
+@dp.message(text="Мои заявки")
+async def show_applications(message: types.Message):
+    await show_applications_menu(message)
+
+
+@dp.message(text="Вернуться в главное меню")
+async def return_to_main_menu(message: types.Message):
+    await show_main_menu(message)
 
 
 async def main():
