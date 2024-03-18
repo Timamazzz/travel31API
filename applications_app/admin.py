@@ -19,5 +19,5 @@ class ApplicantAdmin(admin.ModelAdmin):
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ['applicant', 'municipality', 'school', 'child_full_name', 'child_gender', 'child_age',
+    list_display = ['applicant', 'school', 'child_full_name', 'child_gender', 'child_age',
                     'received_offer', 'duration']
