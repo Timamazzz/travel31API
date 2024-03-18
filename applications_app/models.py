@@ -63,6 +63,8 @@ class Application(models.Model):
     ]
     duration = models.CharField(max_length=30, choices=DURATION_CHOICES, null=True, blank=True,
                                 verbose_name="Срок выезда")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Время последнего обновления")
 
     class Meta:
         verbose_name = "Заявка"
@@ -70,4 +72,4 @@ class Application(models.Model):
         app_label = "applications_app"
 
     def __str__(self):
-        return f"{self.applicant.full_name} - {self.child_full_name}"
+        return f"{self.full_name} - {self.child_full_name}"
