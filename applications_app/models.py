@@ -52,7 +52,7 @@ class Application(models.Model):
         ('Мужской', 'Мужской'),
         ('Женский', 'Женский'),
     ]
-    child_gender = models.CharField(max_length=10, choices=CHILD_GENDER_CHOICES, verbose_name="Пол ребенка")
+    child_gender = models.CharField(max_length=30, choices=CHILD_GENDER_CHOICES, verbose_name="Пол ребенка")
 
     child_age = models.IntegerField(verbose_name="Возраст ребенка")
     received_offer = models.BooleanField(verbose_name="Получали предложение от школы")
