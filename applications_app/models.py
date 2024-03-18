@@ -28,7 +28,7 @@ class School(models.Model):
 
 
 class Applicant(models.Model):
-    full_name = models.CharField(max_length=256, verbose_name="ФИО заявителя")
+
     telegram_id = models.CharField(max_length=512, unique=True, verbose_name="Telegram ID заявителя")
     phone_number = models.CharField(max_length=32, unique=True, verbose_name="Номер телефона заявителя")
 
@@ -43,6 +43,8 @@ class Applicant(models.Model):
 
 class Application(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE, verbose_name="Заявитель")
+
+    full_name = models.CharField(max_length=256, verbose_name="ФИО заявителя")
 
     school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name="Школа")
 
