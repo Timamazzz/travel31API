@@ -91,7 +91,7 @@ DATABASES = {
             'sql_mode': 'ALLOW_INVALID_DATES',
             'charset': 'utf8mb4',
         },
-        'NAME': 'travel31da',
+        'NAME': 'travel31db',
         'USER': 'itcomsqluser',
         'PASSWORD': 'CR0504slpot!a',
         'HOST': 'localhost',
