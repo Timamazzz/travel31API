@@ -28,7 +28,6 @@ class School(models.Model):
 
 
 class Applicant(models.Model):
-
     telegram_id = models.CharField(max_length=512, unique=True, verbose_name="Telegram ID заявителя")
     phone_number = models.CharField(max_length=32, unique=True, verbose_name="Номер телефона заявителя")
 
@@ -38,7 +37,7 @@ class Applicant(models.Model):
         app_label = "applications_app"
 
     def __str__(self):
-        return self.full_name
+        return self.phone_number
 
 
 class Application(models.Model):
