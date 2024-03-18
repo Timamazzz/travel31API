@@ -1,4 +1,4 @@
-from applications_app.filters import ApplicantFilter
+from applications_app.filters import ApplicantFilter, ApplicationFilter
 from applications_app.models import Applicant, Municipality, School, Application
 from applications_app.serailizers.applicant_serializers import ApplicantSerializer
 from applications_app.serailizers.application_serializers import ApplicationSerializer
@@ -12,31 +12,19 @@ class ApplicantViewSet(ModelViewSet):
     queryset = Applicant.objects.all()
     serializer_class = ApplicantSerializer
     filterset_class = ApplicantFilter
-    serializer_list = {
-        'retrieve': ApplicantSerializer,
-        'create': ApplicantSerializer,
-    }
 
 
 class MunicipalityViewSet(ModelViewSet):
     queryset = Municipality.objects.all()
     serializer_class = MunicipalitySerializer
-    serializer_list = {
-        'list': MunicipalitySerializer,
-    }
 
 
 class SchoolViewSet(ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
-    serializer_list = {
-        'list': SchoolSerializer,
-    }
 
 
 class ApplicationViewSet(ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
-    serializer_list = {
-        'create': ApplicationSerializer,
-    }
+    filterset_class = ApplicationFilter
