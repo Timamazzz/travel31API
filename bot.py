@@ -29,6 +29,18 @@ async def cmd_start(message: types.Message):
     )
 
 
+async def show_main_menu(message: types.Message):
+    builder = ReplyKeyboardBuilder()
+    builder.row(
+        types.KeyboardButton(text="Мои заявки"),
+        types.KeyboardButton(text="Создать новую заявку")
+    )
+    await message.answer(
+        "Главное меню",
+        reply_markup=builder.as_markup(resize_keyboard=True),
+    )
+
+
 @dp.message(F.contact)
 async def shared_contact(message: types.Message):
     try:
@@ -39,7 +51,7 @@ async def shared_contact(message: types.Message):
         response_check = requests.get(api_url_check, headers=HEADERS)
 
         if response_check.status_code == 200:
-            await message.answer("Этот пользователь уже существует в базе данных.")
+            await show_main_menu(message)
         elif response_check.status_code == 404:
             api_url_create = f'{API_URL}/applicants/'
             data = {'phone_number': phone_number, 'telegram_id': chat_id}
@@ -47,7 +59,7 @@ async def shared_contact(message: types.Message):
             response_create = requests.post(api_url_create, json=data, headers=HEADERS)
 
             if response_create.status_code == 201:
-                await message.answer("Данные успешно добавлены.")
+                await show_main_menu(message)
             else:
                 await message.answer("Произошла ошибка при добавлении данных.")
         else:
