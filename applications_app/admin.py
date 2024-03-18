@@ -14,10 +14,10 @@ class SchoolAdmin(admin.ModelAdmin):
 
 @admin.register(Applicant)
 class ApplicantAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'telegram_id', 'phone_number']
+    list_display = ['telegram_id', 'phone_number']
 
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ['applicant', 'school', 'child_full_name', 'child_gender', 'child_age',
+    list_display = ['applicant', 'full_name', 'school', 'child_full_name', 'child_gender', 'child_age',
                     'received_offer', 'duration']
