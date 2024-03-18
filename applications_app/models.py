@@ -44,7 +44,6 @@ class Applicant(models.Model):
 class Application(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE, verbose_name="Заявитель")
 
-    municipality = models.ForeignKey(Municipality, on_delete=models.CASCADE, verbose_name="Муниципальное образование")
     school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name="Школа")
 
     child_full_name = models.CharField(max_length=256, verbose_name="ФИО ребенка")
