@@ -1,4 +1,4 @@
-from applications_app.filters import ApplicantFilter, ApplicationFilter
+from applications_app.filters import ApplicantFilter, ApplicationFilter, SchoolFilter
 from applications_app.models import Applicant, Municipality, School, Application
 from applications_app.serailizers.applicant_serializers import ApplicantSerializer
 from applications_app.serailizers.application_serializers import ApplicationSerializer
@@ -22,6 +22,7 @@ class MunicipalityViewSet(ModelViewSet):
 class SchoolViewSet(ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+    filterset_class = SchoolFilter
 
 
 class ApplicationViewSet(ModelViewSet):

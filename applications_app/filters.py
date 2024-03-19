@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from applications_app.models import Applicant, Application
+from applications_app.models import Applicant, Application, School
 
 
 class ApplicantFilter(filters.FilterSet):
@@ -18,3 +18,11 @@ class ApplicationFilter(filters.FilterSet):
     class Meta:
         model = Application
         fields = ['telegram_id', ]
+
+
+class SchoolFilter(filters.FilterSet):
+    municipality = filters.CharFilter(field_name="municipality__id")
+
+    class Meta:
+        model = School
+        fields = ['municipality', ]
